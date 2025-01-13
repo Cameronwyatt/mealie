@@ -26,10 +26,8 @@ def get_labels_from_file(locale: str) -> list[str]:
         All of the labels found within the seed file for a given locale
     """
 
-    locale_path = pathlib.Path(
-        "/workspaces/mealie/mealie/repos/seed/resources/labels/locales/" + locale)
-    label_names = [label["name"] for label in json.loads(
-        locale_path.read_text(encoding="utf-8"))]
+    locale_path = pathlib.Path("/workspaces/mealie/mealie/repos/seed/resources/labels/locales/" + locale)
+    label_names = [label["name"] for label in json.loads(locale_path.read_text(encoding="utf-8"))]
     return label_names
 
 
@@ -46,8 +44,7 @@ def transform_foods(locale: str):
         and a value of attributes, including the translated name of the item e.g. "bicarbonate of soda" for en-GB.
     """
 
-    locale_path = pathlib.Path(
-        "/workspaces/mealie/mealie/repos/seed/resources/foods/locales/" + locale)
+    locale_path = pathlib.Path("/workspaces/mealie/mealie/repos/seed/resources/foods/locales/" + locale)
 
     with open(locale_path, encoding="utf-8") as infile:
         data = json.load(infile)
@@ -65,10 +62,7 @@ def transform_foods(locale: str):
 
 
 def main():
-    override = ["da-DK.json", "hu-HU.json",
-                "it-IT.json", "ro-RO.json", "sv-SE.json"]
-    # for locale in get_seed_locale_names():
-    for locale in override:
+    for locale in get_seed_locale_names():
         transform_foods(locale)
 
 
